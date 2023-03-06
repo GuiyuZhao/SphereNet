@@ -255,6 +255,4 @@ In this project, we use parts of the implementations of the following works:
 ### Updates
 * 03/05/2023: The code is released!
 
-# ShpereNet
-# SphereNet
-# SphereNet
+
