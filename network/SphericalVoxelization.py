@@ -48,20 +48,13 @@ def get_SHOT_space_inter(pts, radius, rad_n, azi_n, ele_n):
     pts_SHOT_space = torch.zeros(1, 1, 1, 1, 1, dtype=torch.float).to(device).repeat(
         [B, N, rad_n, azi_n, ele_n])  # (B, rad_n, azi_n, ele_n)
 
-    rad_n_start=radius/rad_n/2
-    rad_n_step=radius/rad_n
-    azi_n_start=2*math.pi/azi_n/2
-    azi_n_step=2*math.pi/azi_n
-    ele_n_start=math.pi/ele_n/2
-    ele_n_step=math.pi/ele_n
-
     # Step size of r, a, and e to generate interpolation line
-    rad_n_start=torch.tensor(radius/rad_n/2)
-    rad_n_step=torch.tensor(radius/rad_n)
-    azi_n_start=torch.tensor(2*math.pi/azi_n/2)
-    azi_n_step=torch.tensor(2*math.pi/azi_n)
-    ele_n_start=torch.tensor(math.pi/ele_n/2)
-    ele_n_step=torch.tensor(math.pi/ele_n)
+    rad_n_start=torch.tensor(radius/rad_n/2).to(device)
+    rad_n_step=torch.tensor(radius/rad_n).to(device)
+    azi_n_start=torch.tensor(2*math.pi/azi_n/2).to(device)
+    azi_n_step=torch.tensor(2*math.pi/azi_n).to(device)
+    ele_n_start=torch.tensor(math.pi/ele_n/2).to(device)
+    ele_n_step=torch.tensor(math.pi/ele_n).to(device)
 
     SHOT_space_azi = torch.arange(azi_n_start, 2*math.pi, azi_n_step, dtype=torch.float).to(device).view(1, 1, azi_n).repeat([B, N, 1])
     SHOT_space_rad = torch.arange(rad_n_start,radius, rad_n_step, dtype=torch.float).to(device).view(1, 1, rad_n).repeat([B, N, 1])
@@ -87,11 +80,6 @@ def get_SHOT_space_inter(pts, radius, rad_n, azi_n, ele_n):
     e_distance[(pts[:,:,2]<ele_n_start).view(B,N,1).expand(B,N,ele_n)*(ele_n_step<e_distance)*(e_distance<=ele_n_step+ele_n_start)] = ele_n_step
     e_distance[((pts[:,:,2]>math.pi-ele_n_start)*(pts[:,:,2]<=math.pi)).view(B,N,1).expand(B,N,ele_n)*(e_distance <=ele_n_step*0.75)]=0
     e_distance[((pts[:,:,2]>math.pi-ele_n_start)*(pts[:,:,2]<=math.pi)).view(B,N,1).expand(B,N,ele_n)*(ele_n_step<e_distance)*(e_distance<=ele_n_start+ele_n_step)]=ele_n_step
-    # print((pts[:,:,2]>math.pi-ele_n_start)*(pts[:,:,2]<=math.pi))
-    # print((e_distance <=ele_n_start))
-    # print(e_distance)
-    # print(ele_n_start)
-    # r_dix [b,n,2]
 
     # Sort finds two interpolation points for each dimension
     r_distance,r_idx=torch.sort(r_distance,2,descending=False)
@@ -172,10 +160,6 @@ def get_SHOT_space(pts, radius, rad_n, azi_n, ele_n):
     SHOT_space_azi = torch.arange(azi_n, dtype=torch.int).to(device).view(1, azi_n, 1).repeat([rad_n, 1, ele_n])
     SHOT_space_rad = torch.arange(rad_n, dtype=torch.int).to(device).view(rad_n, 1, 1).repeat([1, azi_n, ele_n])
     SHOT_space_ele = torch.arange(ele_n, dtype=torch.int).to(device).view(1, 1, ele_n).repeat([rad_n, azi_n, 1])
-
-    R_pts = (torch.div(pts[:, :, 0], (radius / rad_n))).view(B, N, 1, 1, 1).repeat([1, 1, rad_n, azi_n, ele_n])
-    A_pts = (torch.div(pts[:, :, 1], (2 * math.pi / azi_n))).view(B, N, 1, 1, 1).repeat([1, 1, rad_n, azi_n, ele_n])
-    E_pts = (torch.div(pts[:, :, 2], (math.pi / ele_n))).view(B, N, 1, 1, 1).repeat([1, 1, rad_n, azi_n, ele_n])
 
     # [B. N.  rad_n, azi_n, ele_n] Which area is the statistical point located in
     pts_position = (torch.div(pts[:, :, 0], (radius / rad_n)).floor()) * 1 + (

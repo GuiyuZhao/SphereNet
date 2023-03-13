@@ -196,9 +196,9 @@ if __name__ == '__main__':
     for i in range(len(inliers_list)):
         sum_inliers=sum_inliers+inliers_list[i]*number_list[i]
     average_inliers_fragments = sum_inliers/ sum(number_list)
-    print(f"All 8 scene, average num inliers (for every fragment): {average_inliers_fragments}%")
+    print(f"All 8 scene, average num inliers (for every fragment): {average_inliers_fragments}")
     sum_inliers_ratio=0
     for i in range(len(inliers_ratio_list)):
         sum_inliers_ratio=sum_inliers_ratio+inliers_ratio_list[i]*number_list[i]
     average_inliers_ratio_fragments = sum_inliers_ratio/ sum(number_list)
-    print(f"All 8 scene, average num inliers ratio (for every fragment): {average_inliers_ratio_fragments}%")
+    print(f"All 8 scene, average num inliers ratio (for every fragment): {average_inliers_ratio_fragments}")

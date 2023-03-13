@@ -237,7 +237,12 @@ cd ./generalization/ThreeDMatch-to-KITTI
 python test.py
 ```
 
-
+### (7) Demo: use our SphereNet for your own data
+If necessary, you will need to change the radius parameter to fit your data.
+```
+cd ./ThreeDMatch/Test
+python demo.py [samplings] [source_path] [target_path]
+```
 
 ## Acknowledgement
 
