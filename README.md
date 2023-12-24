@@ -1,8 +1,8 @@
 
-# SphereNet: Learning a Noise-Robust Descriptor for Point Cloud Registration
+# SphereNet: Learning a Noise-Robust and General Descriptor for Point Cloud Registration
 
-
-
+🔥🔥🔥 Our paper is accepted by IEEE Transactions on Geoscience and Remote Sensing (TGRS) 🔥🔥🔥
+[SphereNet: Learning a Noise-Robust and General Descriptor for Point Cloud Registration](https://ieeexplore.ieee.org/document/10356130).
 
 ### (1) Overview
 
@@ -257,7 +257,22 @@ In this project, we use parts of the implementations of the following works:
 
 
 
-### Updates
+## Updates
 * 03/05/2023: The code is released!
+* 12/13/2023: Our paper is accepted by IEEE Transactions on Geoscience and Remote Sensing!
 
 
+## Citation
+```bibtex
+@ARTICLE{10356130,
+  author={Zhao, Guiyu and Guo, Zhentao and Wang, Xin and Ma, Hongbin},
+  journal={IEEE Transactions on Geoscience and Remote Sensing}, 
+  title={SphereNet: Learning a Noise-Robust and General Descriptor for Point Cloud Registration}, 
+  year={2024},
+  volume={62},
+  number={},
+  pages={1-16},
+  doi={10.1109/TGRS.2023.3342423}
+}
+
+```
